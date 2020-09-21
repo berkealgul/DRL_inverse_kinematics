@@ -47,6 +47,7 @@ class ArmEnvironment:
         arm_radius = 60 # maximum range of ee   
         self.target_ee = arm_radius*(2*np.random.rand(3)-1)
         self.target_ee[2] = np.absolute(self.target_ee[2]) # z must be non negative
+        self.target_ee[0] = np.absolute(self.target_ee[0]) # x must be non negative
         self.initial_angles =  self.bounds*(2*np.random.rand(6)-1)
         self.angles = np.copy(self.initial_angles)
         ee = self.Dof_6()
