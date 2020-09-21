@@ -41,13 +41,14 @@ for i in range(n_episodes):
 		score += reward
 
 		print("##############################################")
-		print("episode: ", i+1, "/", n_episodes)
-		print("step: ", j+1, "/",n_steps)
+		print("Episode: ", i+1, "/", n_episodes)
+		print("Step: ", j+1, "/",n_steps)
 		print("")
-		print("state: ", obs)
-		print("info: ", info)
-		print("state_ ", obs_)
-		print("score ", score)
+		print("State: ", obs)
+		print("Info: ", info)
+		print("State_: ", obs_)
+		print("Score: ", score)
+		print("Training device: ", agent.actor.device)
 		print("##############################################")
 
 		if done:
