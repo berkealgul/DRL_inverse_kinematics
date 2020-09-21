@@ -114,6 +114,3 @@ class ArmEnvironment:
         pz = self.L1 - self.L4*(cos(t1)*cos(t2) - sin(t1)*sin(t2)) + self.L2*cos(t1) - self.L5*(sin(t4)*(cos(t1)*cos(t2) - sin(t1)*sin(t2)) - cos(t3)*cos(t4)*(cos(t1)*sin(t2) + cos(t2)*sin(t1))) + self.L3*cos(t1)*sin(t2) + self.L3*cos(t2)*sin(t1)
 
         return np.array([px,py,pz], dtype=np.float32)
-
-
-ArmEnvironment()
