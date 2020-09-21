@@ -1,11 +1,13 @@
-import gym
+import os
 import numpy as np
+from datetime import datetime
 from agent import Agent
 from utils import plot_learning_curve
 from env import ArmEnvironment
 
 name = "arm_2020"
 filename = "plots/"+name+".png"
+logname = "logs/"+name+".txt"
 load = False
 
 env = ArmEnvironment()
@@ -17,7 +19,17 @@ best_score = -np.inf
 score_history = []
 n_episodes = 2000000
 n_steps = 200
-plot_per_episode = 5
+logging_per_episode = 5
+
+# Logging for beginnig
+with open(logname, 'w') as f:
+	now = datetime.now()
+	date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+	f.write("[LOG] Training begins" + os.linesep)
+	f.write("[LOG] Training Device: "+ str(agent.actor.device) + os.linesep)
+	f.write("[LOG] Time: "+ date_time+ os.linesep)
+	f.write(os.linesep)
+
 
 if load:
 	agent.warmup = 0
@@ -61,16 +73,17 @@ for i in range(n_episodes):
 		best_score = avg_score
 		agent.save()
 
-	print("##############################################")
-	print("")
-	print("Episode: ", i+1, " avg_score: %.1f " % avg_score)
-	print("")
-	print("##############################################")
-
-	if i+1   % plot_per_episode == 0:
-		print("PLOTTING")
-		x = [i+1 for i in range(n_episodes)]
+	# Logging for timestamps
+	if (i+1) % logging_per_episode == 0:
+		print("LOGGING")
+		x = [a+1 for a in range(i+1)]
 		plot_learning_curve(x, score_history, filename)
+
+		with open(logname, 'a') as f:
+			now = datetime.now()
+			date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+			f.write("[LOG]" +" Episode: "+ str(i+1)+"/"+str(n_episodes)+
+					" avg_score: %.1f " % avg_score+" Time: "+ date_time + os.linesep)
 
 
 x = [i+1 for i in range(n_episodes)]
