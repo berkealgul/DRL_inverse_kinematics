@@ -85,6 +85,3 @@ for i in range(n_episodes):
 			f.write("[LOG]" +" Episode: "+ str(i+1)+"/"+str(n_episodes)+
 					" avg_score: %.1f " % avg_score+" Time: "+ date_time + os.linesep)
 
-
-x = [i+1 for i in range(n_episodes)]
-plot_learning_curve(x, score_history, filename)
