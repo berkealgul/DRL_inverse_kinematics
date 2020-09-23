@@ -18,8 +18,8 @@ agent = Agent(alpha=0.001, beta=0.001, input_shape=env.observation_space,
 best_score = -np.inf
 score_history = []
 n_episodes = 1000000
-n_steps = 2000
-logging_per_episode = 5
+n_steps = 200
+logging_per_episode = 2000
 
 # Logging for beginnig
 with open(logname, 'w') as f:
