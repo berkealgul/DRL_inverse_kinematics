@@ -85,3 +85,4 @@ for i in range(n_episodes):
 			f.write("[LOG]" +" Episode: "+ str(i+1)+"/"+str(n_episodes)+
 					" avg_score: %.1f " % avg_score+" Time: "+ date_time + os.linesep)
 
+print("end")
