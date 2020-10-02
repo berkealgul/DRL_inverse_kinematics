@@ -15,13 +15,14 @@ class ArmEnvironment:
         self.L4 = 7.0
         self.L5 = 20.0
         
-        self.observation_space = (12,)
-        self.action_space = [6,]
+        self.n_joints = 5
+        self.observation_space = (self.n_joints+6,)
+        self.action_space = [self.n_joints,]
         self.angular_speed = 1.5 * np.pi / 180
         self.action_range = (-self.angular_speed, self.angular_speed)
 
 
-        self.bounds = np.array([0.7,np.pi/2,0.9,np.pi/2,np.pi/2,np.pi/2], dtype=np.float32)
+        self.bounds = np.array([0.7,np.pi/2,0.9,np.pi/2,np.pi/2], dtype=np.float32) #this must match with action space
         self.initial_angles = None
         self.angles = None
         self.target_ee = None
@@ -38,7 +39,7 @@ class ArmEnvironment:
         self.k = 20
         self.a = 1 / 70
         self.b = 5 / np.pi
-        self.t = 100
+        self.t = 200
 
         self.reset()
 
@@ -47,8 +48,7 @@ class ArmEnvironment:
         arm_radius = 60 # maximum range of ee   
         self.target_ee = arm_radius*(2*np.random.rand(3)-1)
         self.target_ee[2] = np.absolute(self.target_ee[2]) # z must be non negative
-        self.target_ee[0] = np.absolute(self.target_ee[0]) # x must be non negative
-        self.initial_angles =  self.bounds*(2*np.random.rand(6)-1)
+        self.initial_angles =  self.bounds*(2*np.random.rand(self.n_joints)-1)
         self.angles = np.copy(self.initial_angles)
         ee = self.Dof_6()
         state = np.concatenate((self.angles, ee, self.target_ee), axis=0)
